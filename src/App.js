@@ -1,4 +1,18 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+
+const Container = styled.div`
+  border: ${({ theme }) => `3px solid ${theme.darkerGray}`};
+`;
+
+const Title = styled.h1`
+  color: ${(props) => props.theme.darkGray};
+`;
+
+const Button = styled.button`
+  background-color: ${({ success, danger }) =>
+    success ? "green" : danger ? "red" : null};
+`;
 
 const App = () => {
   //when declaring a boolean with useState, always use a verb & 'set'
@@ -22,13 +36,16 @@ const App = () => {
     setInitialTime(0);
   };
   return (
-    <div>
-      <h1> Timer : {initialTime} </h1>
-      <button onClick={() => setIsActive((prev) => !prev)}>
+    <Container>
+      <Title> Timer : {initialTime} </Title>
+      <Button success onClick={() => setIsActive((prev) => !prev)}>
         {isActive ? "PAUSE" : "START"}
-      </button>
-      <button onClick={handleReset}>RESET</button>
-    </div>
+      </Button>
+      <Button danger onClick={handleReset}>
+        RESET
+      </Button>
+      {isActive && initialTime !== 0 ? <Button success>RECORD</Button> : null}
+    </Container>
   );
 };
 
