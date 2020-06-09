@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  border: ${({ theme }) => `3px solid ${theme.darkerGray}`};
+  border: ${({ theme }) => `3px solid ${theme.darkerGray[1]}`};
 `;
 
 const Title = styled.h1`
@@ -14,10 +14,15 @@ const Button = styled.button`
     success ? "green" : danger ? "red" : null};
 `;
 
+const List = styled.li`
+  color: ${(props) => (props.time % 2 === 0 ? "red" : "blue")};
+`;
+
 const App = () => {
   //when declaring a boolean with useState, always use a verb & 'set'
   const [isActive, setIsActive] = useState(false);
   const [initialTime, setInitialTime] = useState(0);
+  const [times, setTimes] = useState([]);
 
   useEffect(() => {
     let interval = null;
@@ -35,6 +40,11 @@ const App = () => {
     setIsActive(false);
     setInitialTime(0);
   };
+
+  const handleRecord = () => {
+    setTimes((prev) => [...prev, initialTime]);
+  };
+
   return (
     <Container>
       <Title> Timer : {initialTime} </Title>
@@ -44,7 +54,18 @@ const App = () => {
       <Button danger onClick={handleReset}>
         RESET
       </Button>
-      {isActive && initialTime !== 0 ? <Button success>RECORD</Button> : null}
+      {!isActive && initialTime !== 0 ? (
+        <Button onClick={handleReset} success>
+          RECORD
+        </Button>
+      ) : null}
+      {times.length > 0 ? (
+        <ul>
+          {times.map((time) => (
+            <List time={time}>{time}</List>
+          ))}
+        </ul>
+      ) : null}
     </Container>
   );
 };
