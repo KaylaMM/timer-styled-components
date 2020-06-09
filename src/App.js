@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
 
-function App() {
+const App = () => {
+  //when declaring a boolean with useState, always use a verb & 'set'
+  const [isActive, setIsActive] = useState(false);
+  const [initialTime, setInitialTime] = useState(0);
+
+  useEffect(() => {
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setInitialTime((prev) => prev + 1);
+      }, 1000);
+    } else if (!isActive && initialTime !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isActive, initialTime]);
+
+  const handleReset = () => {
+    setIsActive(false);
+    setInitialTime(0);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1> Timer : {initialTime} </h1>
+      <button onClick={() => setIsActive((prev) => !prev)}>
+        {isActive ? "PAUSE" : "START"}
+      </button>
+      <button onClick={handleReset}>RESET</button>
     </div>
   );
-}
+};
 
 export default App;
+
+//STOPPED AT 17 minutes
