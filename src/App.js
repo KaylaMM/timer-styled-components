@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  border: ${({ theme }) => `3px solid ${theme.darkerGray[1]}`};
+  border: ${({ theme }) => `3px solid ${theme.darkerGray}`};
 `;
 
 const Title = styled.h1`
@@ -22,7 +22,7 @@ const App = () => {
   //when declaring a boolean with useState, always use a verb & 'set'
   const [isActive, setIsActive] = useState(false);
   const [initialTime, setInitialTime] = useState(0);
-  const [times, setTimes] = useState([]);
+  const [times, setTimes] = useState([1]);
 
   useEffect(() => {
     let interval = null;
@@ -55,7 +55,7 @@ const App = () => {
         RESET
       </Button>
       {!isActive && initialTime !== 0 ? (
-        <Button onClick={handleReset} success>
+        <Button onClick={handleRecord} success>
           RECORD
         </Button>
       ) : null}
@@ -71,5 +71,3 @@ const App = () => {
 };
 
 export default App;
-
-//STOPPED AT 17 minutes

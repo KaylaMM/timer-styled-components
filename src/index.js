@@ -5,7 +5,7 @@ import Theme from "./components/Theme";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Theme>
+    <Theme hello="hello">
       <App />
     </Theme>
   </React.StrictMode>,

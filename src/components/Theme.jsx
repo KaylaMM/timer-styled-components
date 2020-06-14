@@ -13,7 +13,9 @@ const theme = {
   colors: [],
 };
 
-const Theme = ({ props }) => {
+const Theme = (props) => {
+  console.log(props);
+  console.log(props.hello);
   return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 };
 
